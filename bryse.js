@@ -86,7 +86,7 @@ const locations = [
     {
         name: 'kill monster',
         'button text': ['Go to town square', 'Go to town square', 'Go to town square'],
-        'button functions': [goTown, goTown, goTown],
+        'button functions': [goTown, goTown, easterEgg],
         text: 'The monster screams Arg! as it dies. You gain experience ponts and find gold'
 
     },
@@ -250,8 +250,7 @@ function getMonsterAttackValue(level) {
 }
 
 function isMonsterHit() {
-    return Math.random() > .2 || health < 20;
-
+    return Math.random() > .2 || health < 20; 
 }
 
 function dodge() {
@@ -287,6 +286,11 @@ function restart() {
     goTown();
 }
 
+function easterEgg() {
+    update(locations[7]);
+    
+}
+
 function pickTwo() {
     pick(2);
 
@@ -296,12 +300,12 @@ function pickEight() {
 
 }
 
-function pick(guess) {
+function pick(guess) {  
     let numbers = [];
     while (numbers.length < 10) {
-        numbers.push(Math.floor(Math.random) * 11);
+        numbers.push(Math.floor(Math.random() * 11) );
     }
-    text.innerText = 'You picked' + guess + "Here are the random numbers:\n";
+    text.innerText = "You picked" + guess +  " . Here are the random numbers:\n";
 
     for (let i = 0; i < 10; i++) {
         text.innerText += numbers[i] + "\n";
@@ -314,7 +318,7 @@ function pick(guess) {
         text.innerText = 'Wrong! You lose 10 health!'
         health -= 10;
         healthText.innerText = health
-        if (health <= 0){
+        if (health <= 0) {
             lose();
         }
     }
