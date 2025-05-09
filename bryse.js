@@ -56,57 +56,56 @@ const monsters = [
 ]
 
 
-
 const locations = [
     {
         name: 'town square',
-        'button text': ['Go to store', 'Go to cave', 'Fight dragon'],
-        'button functions': [goStore, goCave, fightDragon],
+        buttonText: ['Go to store', 'Go to cave', 'Fight dragon'],
+        buttonFunctions: [goStore, goCave, fightDragon],
         text: 'You are in the town square, You see a sign that says \ *store.\** '
     },
     {
         name: 'store',
-        'button text': ['Buy 10 health (10 gold)', 'Buy weapon(30 gold)', 'Go to town Square'],
-        'button functions': [buyHealth, buyWeapon, goTown],
+        buttonText: ['Buy 10 health (10 gold)', 'Buy weapon(30 gold)', 'Go to town Square'],
+        buttonFunctions: [buyHealth, buyWeapon, goTown],
         text: 'You enter the store'
     },
     {
         name: 'cave',
-        'button text': ['fight slime', 'fight fanged beast', 'Go to town square'],
-        'button functions': [fightSlime, fightBeast, goTown],
+        buttonText: ['fight slime', 'fight fanged beast', 'Go to town square'],
+        buttonFunctions: [fightSlime, fightBeast, goTown],
         text: 'You enter the cave . You see some monsters'
     },
     {
         name: 'fight',
-        'button text': ['Attack', 'Dodge', 'Run'],
-        'button functions': [attack, dodge, goTown],
+        buttonText: ['Attack', 'Dodge', 'Run'],
+        buttonFunctions: [attack, dodge, goTown],
         text: 'You are fighting a monster'
 
     },
     {
         name: 'kill monster',
-        'button text': ['Go to town square', 'Go to town square', 'Go to town square'],
-        'button functions': [goTown, goTown, easterEgg],
+        buttonText: ['Go to town square', 'Go to town square', 'Easter egg'],
+        buttonFunctions: [goTown, goTown, easterEgg],
         text: 'The monster screams Arg! as it dies. You gain experience ponts and find gold'
 
     },
     {
         name: 'lose',
-        'button text': ['REPLAY', 'REPLAY', 'REPLAY'],
-        'button functions': [restart, restart, restart],
+        buttonText: ['REPLAY', 'REPLAY', 'REPLAY'],
+        buttonFunctions: [restart, restart, restart],
         text: 'You die'
     },
     {
         name: 'win',
-        'button text': ['REPLAY?', 'REPLAY', 'REPLAY'],
-        'button functions': [restart, restart, restart],
+        buttonText: ['REPLAY?', 'REPLAY', 'REPLAY'],
+        buttonFunctions: [restart, restart, restart],
         text: 'You defeat the dragon! YOU WIN THE GAME!'
 
     },
     {
         name: 'eater egg',
-        'button text': ['2', '8', 'Go to town square'],
-        'button functions': [pickTwo, pickEight, goTown],
+        buttonText: ['2', '8', 'Go to town square'],
+        buttonFunctions: [pickTwo, pickEight, goTown],
         text: 'You find a  secret game.Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers , you win!'
 
     }
@@ -122,14 +121,15 @@ button3.onclick = fightDragon;
 
 function update(location) {
     monsterStats.style.display = 'none';
-    button1.innerText = location['button text'][0];
-    button2.innerText = location['button text'][1];
-    button3.innerText = location['button text'][2];
-    button1.onclick = location['button functions'][0];
-    button2.onclick = location['button functions'][1];
-    button3.onclick = location['button functions'][2];
+    button1.innerText = location.buttonText[0];
+    button2.innerText = location.buttonText[1];
+    button3.innerText = location.buttonText[2];
+    button1.onclick = location.buttonFunctions[0];
+    button2.onclick = location.buttonFunctions[1];
+    button3.onclick = location.buttonFunctions[2];
     text.innerText = location.text
-}
+} 
+
 
 function goTown() {
     update(locations[0]);
@@ -154,12 +154,13 @@ function buyHealth() {
         health += 10
         goldText.innerText = gold;
         healthText.innerText = health;
+        text.innerText = 'You just added more health to your life';
     }
     else {
         text.innerText = " You do not have enough gold to buy health";
     }
 }
-
+ 
 function buyWeapon() {
     if (currentWeapon < weapons.length - 1) {
         if (gold >= 30) {
@@ -167,9 +168,9 @@ function buyWeapon() {
             currentWeapon++;
             goldText.innerText = gold;
             let newWeapon = weapons[currentWeapon].name;
-            text.innerText = 'You now have a' + newWeapon + '.';
+            text.innerText ="You now have a "+ newWeapon + '.';
             inventory.push(newWeapon);
-            text.innerText += "In your inventory you have:" + inventory;
+            text.innerText += "In your inventory you have a"+ inventory;
         }
         else {
             text.innerText = " You do not have enough gold to buy a weapon";
@@ -192,6 +193,7 @@ function sellWeapon() {
     }
     else {
         text.innerText = 'Dont sell your only weapon';
+    
     }
 
 }
@@ -202,7 +204,7 @@ function fightSlime() {
 }
 function fightBeast() {
     fighting = 1;
-    gofight();
+    gofight();j
 
 }
 
@@ -250,7 +252,7 @@ function getMonsterAttackValue(level) {
 }
 
 function isMonsterHit() {
-    return Math.random() > .2 || health < 20; 
+    return Math.random() > .2 || health < 20;
 }
 
 function dodge() {
@@ -288,7 +290,7 @@ function restart() {
 
 function easterEgg() {
     update(locations[7]);
-    
+
 }
 
 function pickTwo() {
@@ -300,12 +302,12 @@ function pickEight() {
 
 }
 
-function pick(guess) {  
+function pick(guess) {
     let numbers = [];
     while (numbers.length < 10) {
-        numbers.push(Math.floor(Math.random() * 11) );
+        numbers.push(Math.floor(Math.random() * 11));
     }
-    text.innerText = "You picked" + guess +  " . Here are the random numbers:\n";
+    text.innerText = "You picked" + guess + " . Here are the random numbers:\n";
 
     for (let i = 0; i < 10; i++) {
         text.innerText += numbers[i] + "\n";
